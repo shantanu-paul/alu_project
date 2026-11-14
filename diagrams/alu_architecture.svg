@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background:#ffffff; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.1"/>
+    </filter>
+    
+    <!-- Arrow Marker (Blue) -->
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#2563EB"/>
+    </marker>
+    <!-- Arrow Marker (Green) -->
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#16A34A"/>
+    </marker>
+    <!-- Arrow Marker (Purple) -->
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#9333EA"/>
+    </marker>
+    <!-- Arrow Marker (Rose) -->
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#E11D48"/>
+    </marker>
+    <!-- Arrow Marker (Orange) -->
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#D97706"/>
+    </marker>
+    <!-- Arrow Marker (Dark Green) -->
+    <marker id="arrow-darkgreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Header -->
+  <text x="500" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#0F172A">8-Bit SystemVerilog ALU Architecture</text>
+  <text x="500" y="60" text-anchor="middle" font-size="13" fill="#64748B">AMD Vivado Compatible • Single-Cycle Combinational Core</text>
+
+  <!-- ==================== ALU INPUTS PANEL ==================== -->
+  <rect x="30" y="80" width="160" height="490" rx="10" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="30" y="80" width="160" height="34" rx="10" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="30" y="104" width="160" height="10" fill="#E2E8F0"/>
+  <text x="110" y="103" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">ALU Inputs</text>
+
+  <!-- Input Port A -->
+  <g transform="translate(45, 140)">
+    <rect width="130" height="56" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+    <text x="65" y="25" text-anchor="middle" font-size="14" font-weight="700" fill="#1D4ED8">A [7:0]</text>
+    <text x="65" y="44" text-anchor="middle" font-size="11" fill="#60A5FA">Operand A (8-bit)</text>
+  </g>
+
+  <!-- Input Port B -->
+  <g transform="translate(45, 270)">
+    <rect width="130" height="56" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+    <text x="65" y="25" text-anchor="middle" font-size="14" font-weight="700" fill="#1D4ED8">B [7:0]</text>
+    <text x="65" y="44" text-anchor="middle" font-size="11" fill="#60A5FA">Operand B (8-bit)</text>
+  </g>
+
+  <!-- Input Port sel -->
+  <g transform="translate(45, 450)">
+    <rect width="130" height="56" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>
+    <text x="65" y="25" text-anchor="middle" font-size="14" font-weight="700" fill="#B45309">sel [3:0]</text>
+    <text x="65" y="44" text-anchor="middle" font-size="11" fill="#D97706">Opcode Select</text>
+  </g>
+
+  <!-- ==================== FUNCTIONAL CORES ==================== -->
+
+  <!-- Block 1: Arithmetic Core -->
+  <g transform="translate(280, 80)" filter="url(#shadow)">
+    <rect width="250" height="110" rx="8" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+    <rect width="250" height="30" rx="8" fill="#DBEAFE"/>
+    <rect y="20" width="250" height="10" fill="#DBEAFE"/>
+    <text x="125" y="21" text-anchor="middle" font-size="13" font-weight="700" fill="#1E40AF">Arithmetic Core</text>
+    <text x="18" y="48" font-size="11.5" font-family="monospace" fill="#1E3A8A">0000: ADD  (A + B)</text>
+    <text x="18" y="66" font-size="11.5" font-family="monospace" fill="#1E3A8A">0001: SUB  (A - B)</text>
+    <text x="18" y="84" font-size="11.5" font-family="monospace" fill="#1E3A8A">0010: MUL  (A * B)</text>
+    <text x="18" y="102" font-size="11.5" font-family="monospace" fill="#1E3A8A">0011: DIV  (B!=0 ? A/B : 0)</text>
+  </g>
+
+  <!-- Block 2: Shift & Rotate Core -->
+  <g transform="translate(280, 205)" filter="url(#shadow)">
+    <rect width="250" height="110" rx="8" fill="#F0FDF4" stroke="#16A34A" stroke-width="2"/>
+    <rect width="250" height="30" rx="8" fill="#DCFCE7"/>
+    <rect y="20" width="250" height="10" fill="#DCFCE7"/>
+    <text x="125" y="21" text-anchor="middle" font-size="13" font-weight="700" fill="#166534">Shift &amp; Rotate Core</text>
+    <text x="18" y="48" font-size="11.5" font-family="monospace" fill="#14532D">0100: LSL  (A &lt;&lt; 1)</text>
+    <text x="18" y="66" font-size="11.5" font-family="monospace" fill="#14532D">0101: LSR  (A &gt;&gt; 1)</text>
+    <text x="18" y="84" font-size="11.5" font-family="monospace" fill="#14532D">0110: ROL  ({A[6:0], A[7]})</text>
+    <text x="18" y="102" font-size="11.5" font-family="monospace" fill="#14532D">0111: ROR  ({A[0], A[7:1]})</text>
+  </g>
+
+  <!-- Block 3: Bitwise Logic Core -->
+  <g transform="translate(280, 330)" filter="url(#shadow)">
+    <rect width="250" height="135" rx="8" fill="#FAF5FF" stroke="#9333EA" stroke-width="2"/>
+    <rect width="250" height="30" rx="8" fill="#F3E8FF"/>
+    <rect y="20" width="250" height="10" fill="#F3E8FF"/>
+    <text x="125" y="21" text-anchor="middle" font-size="13" font-weight="700" fill="#6B21A8">Bitwise Logic Core</text>
+    <text x="18" y="48" font-size="11.5" font-family="monospace" fill="#581C87">1000: AND   (A &amp; B)</text>
+    <text x="18" y="64" font-size="11.5" font-family="monospace" fill="#581C87">1001: OR    (A | B)</text>
+    <text x="18" y="80" font-size="11.5" font-family="monospace" fill="#581C87">1010: XOR   (A ^ B)</text>
+    <text x="18" y="96" font-size="11.5" font-family="monospace" fill="#581C87">1011: NOR   (~(A | B))</text>
+    <text x="18" y="112" font-size="11.5" font-family="monospace" fill="#581C87">1100: NAND  (~(A &amp; B))</text>
+    <text x="18" y="128" font-size="11.5" font-family="monospace" fill="#581C87">1101: XNOR  (~(A ^ B))</text>
+  </g>
+
+  <!-- Block 4: Comparator Core -->
+  <g transform="translate(280, 480)" filter="url(#shadow)">
+    <rect width="250" height="85" rx="8" fill="#FFF1F2" stroke="#E11D48" stroke-width="2"/>
+    <rect width="250" height="30" rx="8" fill="#FFE4E6"/>
+    <rect y="20" width="250" height="10" fill="#FFE4E6"/>
+    <text x="125" y="21" text-anchor="middle" font-size="13" font-weight="700" fill="#9F1239">Comparator Core</text>
+    <text x="18" y="52" font-size="11.5" font-family="monospace" fill="#881337">1110: GT   ((A &gt; B) ? 1 : 0)</text>
+    <text x="18" y="72" font-size="11.5" font-family="monospace" fill="#881337">1111: EQ   ((A == B) ? 1 : 0)</text>
+  </g>
+
+  <!-- ==================== 16:1 MULTIPLEXER ==================== -->
+  <g transform="translate(630, 80)" filter="url(#shadow)">
+    <!-- Trapezoid for Mux -->
+    <path d="M 0 0 L 80 50 L 80 430 L 0 480 Z" fill="#FEF9C3" stroke="#CA8A04" stroke-width="2"/>
+    <text x="35" y="240" text-anchor="middle" font-size="14" font-weight="700" fill="#854D0E" transform="rotate(-90 35 240)">16:1 Output Multiplexer</text>
+    <text x="40" y="25" text-anchor="middle" font-size="10" font-weight="600" fill="#A16207">unique case</text>
+  </g>
+
+  <!-- ==================== ALU OUTPUT PANEL ==================== -->
+  <rect x="790" y="235" width="170" height="150" rx="10" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="790" y="235" width="170" height="34" rx="10" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="790" y="259" width="170" height="10" fill="#E2E8F0"/>
+  <text x="875" y="258" text-anchor="middle" font-size="13" font-weight="700" fill="#334155">ALU Result</text>
+
+  <g transform="translate(805, 290)">
+    <rect width="140" height="70" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+    <text x="70" y="32" text-anchor="middle" font-size="16" font-weight="700" fill="#047857">out [7:0]</text>
+    <text x="70" y="54" text-anchor="middle" font-size="11" fill="#059669">ALU Result (8-bit)</text>
+  </g>
+
+  <!-- ==================== BUS ROUTING & INTERCONNECTS ==================== -->
+
+  <!-- Bus A distribution lines -->
+  <path d="M 175 168 L 220 168 L 220 120 L 280 120" fill="none" stroke="#2563EB" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <path d="M 220 168 L 220 250 L 280 250" fill="none" stroke="#2563EB" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <path d="M 220 250 L 220 380 L 280 380" fill="none" stroke="#2563EB" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <path d="M 220 380 L 220 515 L 280 515" fill="none" stroke="#2563EB" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- Bus B distribution lines -->
+  <path d="M 175 298 L 245 298 L 245 155 L 280 155" fill="none" stroke="#3B82F6" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <path d="M 245 298 L 245 420 L 280 420" fill="none" stroke="#3B82F6" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <path d="M 245 420 L 245 545 L 280 545" fill="none" stroke="#3B82F6" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- Sub-block Outputs to MUX -->
+  <!-- Arith to MUX -->
+  <path d="M 530 135 L 630 135" fill="none" stroke="#2563EB" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <text x="580" y="128" text-anchor="middle" font-size="10" font-weight="600" fill="#2563EB">[7:0]</text>
+
+  <!-- Shift to MUX -->
+  <path d="M 530 260 L 630 260" fill="none" stroke="#16A34A" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+  <text x="580" y="253" text-anchor="middle" font-size="10" font-weight="600" fill="#16A34A">[7:0]</text>
+
+  <!-- Logic to MUX -->
+  <path d="M 530 395 L 630 395" fill="none" stroke="#9333EA" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+  <text x="580" y="388" text-anchor="middle" font-size="10" font-weight="600" fill="#9333EA">[7:0]</text>
+
+  <!-- Comp to MUX -->
+  <path d="M 530 520 L 630 520" fill="none" stroke="#E11D48" stroke-width="2.5" marker-end="url(#arrow-rose)"/>
+  <text x="580" y="513" text-anchor="middle" font-size="10" font-weight="600" fill="#E11D48">[7:0]</text>
+
+  <!-- Opcode Select Line to MUX -->
+  <path d="M 175 478 L 200 478 L 200 580 L 670 580 L 670 535" fill="none" stroke="#D97706" stroke-width="3" stroke-dasharray="6,3" marker-end="url(#arrow-orange)"/>
+  <text x="435" y="573" text-anchor="middle" font-size="11" font-weight="700" fill="#B45309">sel [3:0] (Opcode Control Bus)</text>
+
+  <!-- MUX Output to Final Port -->
+  <path d="M 710 320 L 805 320" fill="none" stroke="#059669" stroke-width="3.5" marker-end="url(#arrow-darkgreen)"/>
+  <text x="755" y="310" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">out [7:0]</text>
+
+</svg>

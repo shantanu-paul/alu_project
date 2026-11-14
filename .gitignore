@@ -1,0 +1,9 @@
+# Vivado / EDA simulation artifacts
+xsim.dir/
+.Xil/
+*.log
+*.pb
+*.jou
+*.wdb
+*.vcd
+*.str

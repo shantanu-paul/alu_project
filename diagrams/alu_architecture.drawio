@@ -1,0 +1,126 @@
+<mxfile host="app.diagrams.net" modified="2026-11-15T00:30:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
+  <diagram id="alu_block_diagram" name="8-Bit SystemVerilog ALU Architecture">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="8-Bit Parameterized SystemVerilog ALU Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#1E293B;" vertex="1" parent="1">
+          <mxGeometry x="310" y="30" width="550" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Inputs Group Box -->
+        <mxCell id="input_grp" value="ALU Top Inputs" style="swimlane;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;fillColor=#F8FAFC;strokeColor=#94A3B8;rounded=1;startSize=26;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="160" height="490" as="geometry" />
+        </mxCell>
+        <mxCell id="in_A" value="A [7:0]&#xa;(Operand A)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;fontStyle=1;fontSize=12;" vertex="1" parent="input_grp">
+          <mxGeometry x="20" y="60" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="in_B" value="B [7:0]&#xa;(Operand B)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;fontStyle=1;fontSize=12;" vertex="1" parent="input_grp">
+          <mxGeometry x="20" y="180" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="in_sel" value="sel [3:0]&#xa;(Opcode Select)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#F59E0B;fontStyle=1;fontSize=12;" vertex="1" parent="input_grp">
+          <mxGeometry x="20" y="360" width="120" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Functional Core Sub-Blocks -->
+        <!-- Block 1: Arithmetic Core -->
+        <mxCell id="blk_arith" value="Arithmetic Core&#xa;--------------------------&#xa;0000: ADD (A + B)&#xa;0001: SUB (A - B)&#xa;0010: MUL (A * B)&#xa;0011: DIV (B != 0 ? A/B : 0)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#2563EB;fontSize=12;fontStyle=0;align=left;spacingLeft=15;" vertex="1" parent="1">
+          <mxGeometry x="300" y="100" width="220" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Block 2: Shifter / Rotator Core -->
+        <mxCell id="blk_shift" value="Shift &amp; Rotate Core&#xa;--------------------------&#xa;0100: LSL (A &lt;&lt; 1)&#xa;0101: LSR (A &gt;&gt; 1)&#xa;0110: ROL ({A[6:0], A[7]})&#xa;0111: ROR ({A[0], A[7:1]})" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#16A34A;fontSize=12;fontStyle=0;align=left;spacingLeft=15;" vertex="1" parent="1">
+          <mxGeometry x="300" y="230" width="220" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Block 3: Bitwise Logic Core -->
+        <mxCell id="blk_logic" value="Bitwise Logic Core&#xa;--------------------------&#xa;1000: AND (A &amp; B)&#xa;1001: OR  (A | B)&#xa;1010: XOR (A ^ B)&#xa;1011: NOR (~(A | B))&#xa;1100: NAND (~(A &amp; B))&#xa;1101: XNOR (~(A ^ B))" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAF5FF;strokeColor=#9333EA;fontSize=12;fontStyle=0;align=left;spacingLeft=15;" vertex="1" parent="1">
+          <mxGeometry x="300" y="360" width="220" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- Block 4: Comparator Core -->
+        <mxCell id="blk_comp" value="Relational / Comparator Core&#xa;--------------------------&#xa;1110: GT ((A &gt; B) ? 8'd1 : 8'd0)&#xa;1111: EQ ((A == B) ? 8'd1 : 8'd0)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF1F2;strokeColor=#E11D48;fontSize=12;fontStyle=0;align=left;spacingLeft=15;" vertex="1" parent="1">
+          <mxGeometry x="300" y="510" width="220" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- 16-to-1 Multiplexer (Output Selector) -->
+        <mxCell id="mux_out" value="16:1 Output MUX&#xa;(unique case (sel))" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;direction=west;fillColor=#FEF9C3;strokeColor=#CA8A04;fontStyle=1;fontSize=13;size=30;" vertex="1" parent="1">
+          <mxGeometry x="640" y="130" width="100" height="430" as="geometry" />
+        </mxCell>
+
+        <!-- Output Port -->
+        <mxCell id="out_grp" value="ALU Output" style="swimlane;whiteSpace=wrap;html=1;fontSize=13;fontStyle=1;fillColor=#F8FAFC;strokeColor=#94A3B8;rounded=1;startSize=26;" vertex="1" parent="1">
+          <mxGeometry x="840" y="270" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="out_P" value="out [7:0]&#xa;(ALU Result)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#22C55E;fontStyle=1;fontSize=13;" vertex="1" parent="out_grp">
+          <mxGeometry x="20" y="55" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Connecting Lines: Inputs to Sub-blocks -->
+        <!-- Bus A connections -->
+        <mxCell id="wire_A_arith" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.35;strokeWidth=2;strokeColor=#2563EB;" edge="1" parent="1" source="in_A" target="blk_arith">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wire_A_shift" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.4;strokeWidth=2;strokeColor=#2563EB;" edge="1" parent="1" source="in_A" target="blk_shift">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wire_A_logic" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.35;strokeWidth=2;strokeColor=#2563EB;" edge="1" parent="1" source="in_A" target="blk_logic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wire_A_comp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.4;strokeWidth=2;strokeColor=#2563EB;" edge="1" parent="1" source="in_A" target="blk_comp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Bus B connections -->
+        <mxCell id="wire_B_arith" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.7;strokeWidth=2;strokeColor=#3B82F6;" edge="1" parent="1" source="in_B" target="blk_arith">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wire_B_logic" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;strokeWidth=2;strokeColor=#3B82F6;" edge="1" parent="1" source="in_B" target="blk_logic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wire_B_comp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;strokeWidth=2;strokeColor=#3B82F6;" edge="1" parent="1" source="in_B" target="blk_comp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Sub-blocks to MUX connections -->
+        <mxCell id="wire_arith_mux" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2563EB;" edge="1" parent="1" source="blk_arith">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="155" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wire_shift_mux" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#16A34A;" edge="1" parent="1" source="blk_shift">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="285" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wire_logic_mux" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#9333EA;" edge="1" parent="1" source="blk_logic">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="425" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wire_comp_mux" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E11D48;" edge="1" parent="1" source="blk_comp">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Sel to MUX -->
+        <mxCell id="wire_sel_mux" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;strokeWidth=3;strokeColor=#D97706;" edge="1" parent="1" source="in_sel" target="mux_out">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="620" />
+              <mxPoint x="690" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- MUX to Output -->
+        <mxCell id="wire_mux_out" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#15803D;" edge="1" parent="1" source="mux_out" target="out_P">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
