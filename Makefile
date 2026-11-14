@@ -8,9 +8,9 @@ TB       = tb/alu_tb.sv
 TOP      = alu_tb
 SNAPSHOT = alu_sim
 
-.PHONY: all compile elaborate run clean
+.PHONY: all compile elaborate run syn clean
 
-# Default target
+# Default target: Run simulation
 all: run
 
 # Step 1: Compile SystemVerilog RTL and testbench
@@ -24,6 +24,10 @@ elaborate: compile
 # Step 3: Run simulation in batch mode
 run: elaborate
 	xsim $(SNAPSHOT) -R
+
+# Step 4: Run complete Vivado Synthesis, Place & Route, and STA
+syn:
+	vivado -mode batch -source scripts/run_pnr.tcl -nojournal -nolog
 
 # Clean simulation outputs and temporary files
 clean:

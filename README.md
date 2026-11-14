@@ -9,15 +9,23 @@ A synthesizable 8-bit Arithmetic Logic Unit (ALU) implemented in modern **System
 ```text
 alu_systemverilog/
 ├── src/
-│   └── alu.sv                   # Synthesizable SystemVerilog ALU RTL
+│   └── alu.sv                              # Synthesizable SystemVerilog ALU RTL
 ├── tb/
-│   └── alu_tb.sv                # Linear self-checking testbench
+│   └── alu_tb.sv                           # Linear self-checking testbench
+├── constraints/
+│   └── alu.xdc                             # SDC/XDC timing constraints (virtual clock & I/O delays)
+├── scripts/
+│   └── run_pnr.tcl                         # Non-project batch synthesis & PnR script
+├── reports/                                # Generated physical reports (utilization, STA, power)
+├── checkpoints/                            # Vivado checkpoints (alu_synth.dcp, alu_routed.dcp)
 ├── diagrams/
-│   ├── alu_architecture.svg     # Vector architecture schematic (embedded below)
-│   └── alu_architecture.drawio  # Editable schematic source for Draw.io
-├── Makefile                     # Build & run automation (all, run, clean)
-├── run_sim.bat                  # 1-Click Windows batch simulation script
-└── README.md                    # Project documentation
+│   ├── alu_architecture.svg                # Vector architecture schematic
+│   └── alu_architecture.drawio             # Editable schematic source for Draw.io
+├── Makefile                                # Build & run automation (all, run, syn, clean)
+├── run_sim.bat                             # 1-Click Windows simulation script
+├── run_synth_pnr.bat                       # 1-Click Windows synthesis & PnR script
+├── README.md                               # Project documentation
+└── SYNTHESIS_AND_PHYSICAL_DESIGN_GUIDE.md  # In-depth Vivado implementation & STA guide
 ```
 
 ---
@@ -89,10 +97,13 @@ The linear testbench (`tb/alu_tb.sv`) applies directed stimuli step-by-step with
 # Run complete simulation
 make all
 
-# Individual stages
+# Individual simulation stages
 make compile      # xvlog -sv src/alu.sv tb/alu_tb.sv
 make elaborate    # xelab -debug typical alu_tb -s alu_sim
 make run          # xsim alu_sim -R
+
+# Run complete Synthesis, Place & Route, and STA flow
+make syn
 
 # Clean all build outputs
 make clean
@@ -100,7 +111,11 @@ make clean
 
 ### Windows One-Click Batch
 ```powershell
+# 1. Run simulation
 .\run_sim.bat
+
+# 2. Run synthesis, placement, routing & timing analysis
+.\run_synth_pnr.bat
 ```
 
 ---
@@ -208,3 +223,25 @@ Failed      : 0
 RESULT: ALL TESTS PASSED
 ==============================
 ```
+
+---
+
+## 7. Synthesis, Place & Route, and Timing Analysis
+
+The design was synthesized, placed, and routed targeting an **AMD/Xilinx Artix-7 FPGA (`xc7a35tcpg236-1`)** using a non-project batch flow with `constraints/alu.xdc` and `scripts/run_pnr.tcl`.
+
+### Physical Implementation Summary
+
+| Metric | Post-Synthesis | Post-Route (Final) | Architectural Note |
+|:---|:---:|:---:|:---|
+| **Slice LUTs** | 167 | **176** | Logic gates, 16:1 multiplexers, partial arithmetic |
+| **Slice Registers (FFs)** | 0 | **0** | Purely combinational module (`always_comb`) |
+| **CARRY4 Primitives** | 32 | **32** | Ripple carry chains used across adders & unpipelined dividers |
+| **Bonded IOBs** | 28 | **28** | 4 `sel` + 8 `A` + 8 `B` + 8 `out` = 28 package pins |
+| **Routable Nets** | --- | **206 (100% routed)** | 0 routing errors, 0 DRC violations |
+| **Critical Path Delay** | --- | **19.556 ns** (29 logic levels) | Port `B[0]` $\rightarrow$ 20 CARRY4 stages $\rightarrow$ Port `out[0]` |
+| **Max Frequency ($F_{\text{max}}$)**| --- | **~42.4 MHz** | Limited by unpipelined combinational division (`DIV`) |
+| **Total On-Chip Power** | --- | **0.077 W (77 mW)** | 7 mW dynamic, 70 mW device static |
+
+> 📖 **Full Physical Design & STA Walkthrough:** For a comprehensive beginner's guide explaining virtual clocks, STA equations, critical path diagnosis, and ASIC Physical Design interview preparation, see [SYNTHESIS_AND_PHYSICAL_DESIGN_GUIDE.md](SYNTHESIS_AND_PHYSICAL_DESIGN_GUIDE.md).
+

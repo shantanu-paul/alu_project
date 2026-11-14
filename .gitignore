@@ -1,6 +1,8 @@
-# Vivado / EDA simulation artifacts
+# Vivado / EDA simulation & implementation artifacts
 xsim.dir/
 .Xil/
+checkpoints/
+clockInfo.txt
 *.log
 *.pb
 *.jou
